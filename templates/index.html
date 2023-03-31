@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ruumide Broneerimine</title>
+    <link href="../static/styles/index.css" rel="stylesheet" />
+    <link href="../static/styles/animate.css" rel="stylesheet"/>
+</head>
+<body>
+    <a href="/">
+     <img src="../static/logo.png" alt="logo" width="205" height="120">
+    </a>
+        <h1 style="color:white;">Ruumide broneerimine</h1>
+    <br><br>
+    <div class="animate__animated animate__fadeIn">
+        <div id="kast">
+        <br>
+        <form method="POST">
+        <label for="Ruum">Ruum: </label>
+     <select name="Ruum" class="css-input" value="{{ Ruum }}">    
+        <option value="A101">A101</option>
+        <option value="A102">A102</option>
+        <option value="A103">A103</option>
+        <option value="A104">A104</option>
+        <option value="A105">A105</option>
+        <option value="A201">A201</option>
+        <option value="A202">A202</option>
+        <option value="A203">A203</option>
+        <option value="A204">A204</option>
+        <option value="A205">A205</option>
+        <option value="B101">B101</option>
+        <option value="B102">B102</option>
+        <option value="B108">B108</option>
+        <option value="B201">B201</option>
+        <option value="B203">B203</option>
+        <option value="B204">B204</option>
+        <option value="B205">B205</option>
+        <option value="B206">B206</option>
+        <option value="B208">B208</option>
+        <option value="B209">B209</option>
+        <option value="B210">B210</option>
+        <option value="C105">C105</option>
+        <option value="C110">C110</option>
+    </select>
+     <br>
+    <label for="Kuupaev">Kuupäev: </label>
+     <input type="date" id="e" name="Kuupaev" class="css-input" value="{{ Kuupaev }}" required>
+    <script>
+        document.getElementById('e').value = new Date().toISOString().substring(0, 10);
+    </script>
+     <br><br>
+    <label for="Kellaaeg">Kellaaeg: </label>
+        <select name="Kellaaeg" class="css-input" value="{{ Kellaaeg }}">    
+            <option value="8.30-10.00">8.30-10.00</option>
+            <option value="10.15-11.45">10.15-11.45</option>
+            <option value="12.15-13.45">12.15-13.45</option>
+            <option value="14.15-15.45">14.15-15.45</option>
+            <option value="16.15-17.45">16.15-17.45</option>
+        </select>
+      <br>
+    <label for="Nimi">Nimi: </label>
+        <input type="text" name="Nimi" placeholder="Ruumi broneerija Nimi" class="css-input" required value="{{ Nimi }}" oninvalid="this.setCustomValidity('Palun täida see lahter!')"
+        oninput="this.setCustomValidity('')">
+      <br><br>
+    <button name="Broneerin?" value="Jah" type="submit" class="btn">Broneeri</button>
+        </form>
+    <a href="/delete">
+        <form method="get"><button name="kustuta" type="button" class="btn">Kustuta</button></form>
+    </a>
+    <a href="/calendar">
+        <form method="get"><button name="Kalender" type="button" class="btn">Broneeringute kalender</button></form>
+    </a>
+    <br><br><br>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+         {% for message in messages %}
+           {{ message }}
+          {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <p>//klikates "TALTECH" logole, saad kodulehele tagasi//</p>
+    <br>
+    </div>
+    </div>
+</body>
+</html>

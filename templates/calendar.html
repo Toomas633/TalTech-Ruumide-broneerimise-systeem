@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ruumide Broneerimine</title>
+	<meta charset="UTF-8">
+	<link type="text/css"  rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
+	<link type="text/css"  rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-responsive.css') }}"/>
+	<link type="text/css"  rel="stylesheet" href="{{ url_for('static', filename='css/calendar.min.css') }}"/>
+</head>
+<body>
+	<a href="/">
+	<img src="../static/logo.png" alt="logo" width="205" height="120">
+	</a>
+	<h1 style="color:white;">Ruumide broneerimine</h1>
+	<br><br>
+	<div class="container">
+		<div class="page-header">
+			<h3 style="color: white;"></h3>
+			<div style="top: -20px;">
+				<div  class="pull-left from-inline">
+				<form method="POST">
+					<div class="btn-group">
+						<a href="/">
+							<button name="Tagasi" type="button" class="btn btn-primary"> << Tagasi </button>
+						</a>
+						<select name="RUUM" class="btn" id="RUUM">
+							<option value="A101">A101</option>
+							<option value="A102">A102</option>
+							<option value="A103">A103</option>
+							<option value="A104">A104</option>
+							<option value="A105">A105</option>
+							<option value="A201">A201</option>
+							<option value="A202">A202</option>
+							<option value="A203">A203</option>
+							<option value="A204">A204</option>
+							<option value="A205">A205</option>
+							<option value="B101">B101</option>
+							<option value="B102">B102</option>
+							<option value="B108">B108</option>
+							<option value="B201">B201</option>
+							<option value="B203">B203</option>
+							<option value="B204">B204</option>
+							<option value="B205">B205</option>
+							<option value="B206">B206</option>
+							<option value="B208">B208</option>
+							<option value="B209">B209</option>
+							<option value="B210">B210</option>
+							<option value="C105">C105</option>
+							<option value="C110">C110</option>
+						</select>
+						<button class="btn btn-primary" data-calendar-nav="Lae">Lae andmed</button>
+						</div>
+				    </form>
+				</div>
+			</div>
+			<div class="pull-right form-inline">
+				<div class="btn-group">
+					<button class="btn btn-primary" data-calendar-nav="prev"><< Eelmine</button>
+					<button class="btn" data-calendar-nav="today">Täna</button>
+					<button class="btn btn-primary" data-calendar-nav="next">Järgmine >></button>
+				</div>
+			</div>
+		</div>
+		<br><br>
+		<div class="row">
+			<div class="span12">
+				<div id="calendar"></div>
+			</div>
+		</div>
+	</div>
+		<div class="clearfix"></div>
+		<br><br>
+		
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='js/calendar.min.js') }}"></script>
+		
+		<script>
+			(function($) {
+				"use strict";
+				var options = {
+					events_source: 'http://localhost:5000/calendar-events',
+					view: 'week',
+					tmpl_path: '../../static/templates/',
+					tmpl_cache: false,
+					onAfterViewLoad: function(view) {
+                        $('.page-header h3').text(this.getTitle());
+						$('.btn-group button').removeClass('active');
+						$('button[data-calendar-view="' + view + '"]').addClass('active');
+					},
+					classes: {
+						months: {
+							general: 'label'
+						}
+					}
+				};
+
+				var calendar = $('#calendar').calendar(options);
+
+				$('.btn-group button[data-calendar-nav]').each(function(){
+					var $this = $(this);
+					$this.click(function() {
+						calendar.navigate($this.data('calendar-nav'));
+					});
+				});
+                $('#events-in-modal').change(function(){
+					var val = $(this).is(':checked') ? $(this).val() : null;
+					calendar.setOptions({modal: val});
+				});
+                $('#events-modal .modal-header, #events-modal .modal-footer').click(function(e){
+					//e.preventDefault();
+					//e.stopPropagation();
+				});
+				
+			}(jQuery));
+		</script>
+	</div>
+</body>
+</html>
