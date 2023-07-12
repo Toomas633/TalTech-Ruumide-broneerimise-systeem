@@ -12,7 +12,7 @@ vale_nimi = 0
 broneeringud = []
 
 db = mysql.connector.connect(
-  host="mysql.toomas633.com",
+  host="sql.toomas633.com",
   port="3306",
   user="test",
   password="Test-Password01",
